@@ -15,7 +15,8 @@ class ClientController extends Controller
     public function index()
     {
         //
-        return view('clients.index');
+        $datos['clients']=Client::paginate(10);
+        return view('clients.index', $datos);
     }
 
     /**
@@ -64,10 +65,12 @@ class ClientController extends Controller
      * @param  \App\client  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit(client $client)
+    public function edit($id)
     {
-        //
-        //return view('clients.edit');
+        //findOrfail trae toda la información de la base de datos para ese id
+        $client= Client::findOrfail($id);
+        //compact, Crea un cojunto de información desde una variable
+        return view('clients.edit', compact('client'));
     }
 
     /**
@@ -88,8 +91,11 @@ class ClientController extends Controller
      * @param  \App\client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(client $client)
+    public function destroy($id)
     {
         //
+        Client::destroy($id);
+
+        return redirect('clients');
     }
 }
