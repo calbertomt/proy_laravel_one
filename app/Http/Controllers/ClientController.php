@@ -15,6 +15,7 @@ class ClientController extends Controller
     public function index()
     {
         //
+        return view('clients.index');
     }
 
     /**
@@ -25,6 +26,7 @@ class ClientController extends Controller
     public function create()
     {
         //
+        return view('clients.create');
     }
 
     /**
@@ -36,6 +38,13 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         //
+        $datosClients=request()->all();
+
+        $datosClients=request()->except('_token');
+
+        Client::insert($datosClients);
+
+        return response()->json($datosClients);
     }
 
     /**
@@ -58,6 +67,7 @@ class ClientController extends Controller
     public function edit(client $client)
     {
         //
+        //return view('clients.edit');
     }
 
     /**

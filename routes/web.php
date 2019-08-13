@@ -14,6 +14,18 @@
 Route::get('/', function () {
     return view('welcome');
 });
+/*Route::get('/clients', function () {
+    return view('clients.index');
+});*/
+/*Route::get('/clients/create', function () {
+    return view('clients.create');
+});*/
+
+//Route::get('/clients', 'ClientController@index');
+//Route::get('/clients/create', 'ClientController@create');
+//Route::get('/clients/edit', 'ClientController@edit');
+
+Route::resource('clients', 'ClientController');
 
 Auth::routes();
 
