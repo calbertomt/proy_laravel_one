@@ -45,7 +45,8 @@ class ClientController extends Controller
 
         Client::insert($datosClients);
 
-        return response()->json($datosClients);
+        //return response()->json($datosClients);
+        return redirect('clients')->with('Mensaje', 'Cliente Agregado con Exito');
     }
 
     /**
@@ -80,9 +81,18 @@ class ClientController extends Controller
      * @param  \App\client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, client $client)
+    public function update(Request $request, $id)
     {
         //
+        $datosClients=request()->except(['_token','_method']);
+
+        Client::where('id','=',$id)->update($datosClients);
+
+        //findOrfail trae toda la información de la base de datos para ese id
+        //$client= Client::findOrfail($id);
+        //compact, Crea un cojunto de información desde una variable
+        //return view('clients.edit', compact('client'));
+        return redirect('clients')->with('Mensaje', 'Cliente Modificado con Exito');
     }
 
     /**
@@ -96,6 +106,6 @@ class ClientController extends Controller
         //
         Client::destroy($id);
 
-        return redirect('clients');
+        return redirect('clients')->with('Mensaje', 'Cliente Eliminado con Exito');
     }
 }

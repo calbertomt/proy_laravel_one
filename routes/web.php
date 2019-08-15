@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 /*Route::get('/clients', function () {
     return view('clients.index');
@@ -27,6 +27,6 @@ Route::get('/', function () {
 
 Route::resource('clients', 'ClientController');
 
-Auth::routes();
+Auth::routes(['register'=>false,'reset'=>false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
