@@ -25,7 +25,7 @@ Route::get('/', function () {
 //Route::get('/clients/create', 'ClientController@create');
 //Route::get('/clients/edit', 'ClientController@edit');
 
-Route::resource('clients', 'ClientController');
+Route::resource('clients', 'ClientController')->middleware('auth');
 
 Auth::routes(['register'=>false,'reset'=>false]);
 

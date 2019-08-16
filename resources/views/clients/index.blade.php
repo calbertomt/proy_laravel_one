@@ -2,11 +2,12 @@
 
 @section('content')
 	<div class="container">
-
-		@if(Session::has('Mensaje')){{
-			Session::get('Mensaje')
-		}}
-		@endif
+		
+		@if(Session::has('Mensaje'))
+			<div class="alert alert-success" role="alert">
+				{{ Session::get('Mensaje') }}
+			</div>
+		@endif		
 
 		<a href="{{ url('clients/create') }}" class="btn btn-success">Agregar Cliente</a>
 		<br>
@@ -63,5 +64,7 @@
 			@endforeach
 			</tbody>
 		</table>
+
+		{{ $clients->links() }}
 	</div>
 @endsection

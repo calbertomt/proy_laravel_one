@@ -15,7 +15,7 @@ class ClientController extends Controller
     public function index()
     {
         //
-        $datos['clients']=Client::paginate(10);
+        $datos['clients']=Client::paginate(2);
         return view('clients.index', $datos);
     }
 
@@ -39,6 +39,25 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         //
+        $campos=[
+            'srut'=>'required|string|max:14',
+            'sdiv'=>'required|string|max:10',
+            'sfirstname'=>'required|string|max:50',
+            'slastname'=>'required|string|max:50',
+            'semail'=>'required|string|max:50',
+            'dbirthdate'=>'required|date'
+        ];
+        //$mensaje=["required"=>'Campo :attribute obligatorio'];
+        $mensaje=["required"=>'Campo obligatorio'];
+
+        /*
+        Se le envia al metodo validate las variables
+        .-$request => Todos los campos que se estan mandando desde el formulario al metodo store
+        .-$campos => Los campos que se necesitan Validar
+        .-$mensaje => El mensaje que se envia al usuario para advertir que el campos es obligatorio
+        */
+        $this->validate($request,$campos,$mensaje);
+
         $datosClients=request()->all();
 
         $datosClients=request()->except('_token');
@@ -84,6 +103,26 @@ class ClientController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+         $campos=[
+            'srut'=>'required|string|max:14',
+            'sdiv'=>'required|string|max:10',
+            'sfirstname'=>'required|string|max:50',
+            'slastname'=>'required|string|max:50',
+            'semail'=>'required|string|max:50',
+            'dbirthdate'=>'required|date'
+        ];
+        //$mensaje=["required"=>'Campo :attribute obligatorio'];
+        $mensaje=["required"=>'Campo obligatorio'];
+
+        /*
+        Se le envia al metodo validate las variables
+        .-$request => Todos los campos que se estan mandando desde el formulario al metodo store
+        .-$campos => Los campos que se necesitan Validar
+        .-$mensaje => El mensaje que se envia al usuario para advertir que el campos es obligatorio
+        */
+        $this->validate($request,$campos,$mensaje);
+
         $datosClients=request()->except(['_token','_method']);
 
         Client::where('id','=',$id)->update($datosClients);
